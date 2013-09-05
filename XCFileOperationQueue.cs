@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace UnityEditor.XCodeEditor
+namespace thevolary.rise.UnityEditor.XCodeEditor
 {
 	public class XCFileOperationQueue : System.IDisposable
 	{
