@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.IO;
-using Json = MiniJSON;
+using thevolary.rise;
 
 namespace thevolary.rise.UnityEditor.XCodeEditor 
 {
@@ -19,7 +19,7 @@ namespace thevolary.rise.UnityEditor.XCodeEditor
 		private ArrayList _libs;
 		
 		public string name { get; private set; }
-		public string path { get; private set; }
+		public string path { get; set; }
 		
 		public string group {
 			get {
@@ -36,7 +36,11 @@ namespace thevolary.rise.UnityEditor.XCodeEditor
 		public ArrayList libs {
 			get {
 				if( _libs == null ) {
-					_libs = new ArrayList( ((ArrayList)_datastore["libs"]).Count );
+          if (_datastore["libs"] is IList) {
+            _libs = new ArrayList(((IList)_datastore["libs"]).Count);
+          } else {
+					  _libs = new ArrayList( ((ArrayList)_datastore["libs"]).Count );
+          }
 					foreach( string fileRef in (ArrayList)_datastore["libs"] ) {
 						_libs.Add( new XCModFile( fileRef ) );
 					}
@@ -86,7 +90,7 @@ namespace thevolary.rise.UnityEditor.XCodeEditor
 			path = System.IO.Path.GetDirectoryName( filename );
 			
 			string contents = projectFileInfo.OpenText().ReadToEnd();
-			_datastore = (Hashtable)MiniJSON.jsonDecode( contents );
+			_datastore = Json.DeserializeToHashtable( contents );
 			
 //			group = (string)_datastore["group"];
 //			patches = (ArrayList)_datastore["patches"];
