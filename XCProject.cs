@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace UnityEditor.XCodeEditor
+namespace thevolary.rise.UnityEditor.XCodeEditor
 {
 	public partial class XCProject : System.IDisposable
 	{
